@@ -1,0 +1,45 @@
+Sub Easy()
+
+Dim ticker As String
+Dim volumn As Double
+Dim row As Double
+Dim writeToRow As Double
+Dim lastRow As Double
+Dim sheet As Worksheet
+        
+For Each sheet In Sheets
+    sheet.Activate
+    Range("H1").Value = "<ticker>"
+    Range("I1").Value = "<volumn>"
+    ticker = Range("A2").Value
+    volumn = Range("G2").Value
+    
+    writeToRow = 2
+    
+    lastRow = sheet.Cells(sheet.Rows.Count, "A").End(xlUp).row
+    
+    For row = 3 To lastRow + 1
+    
+        If Cells(row, 1).Value = ticker Then
+            volumn = volumn + Cells(row, 7).Value
+        
+        Else
+            
+            Cells(writeToRow, 8).Value = ticker
+            Cells(writeToRow, 9).Value = volumn
+            
+            writeToRow = writeToRow + 1
+            
+            ticker = Cells(row, 1).Value
+            volumn = Cells(row, 7).Value
+            
+        End If
+        
+    Next row
+    
+Next sheet
+
+End Sub
+
+
+
